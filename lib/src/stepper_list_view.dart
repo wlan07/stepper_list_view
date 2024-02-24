@@ -18,6 +18,7 @@ class StepperListView extends StatelessWidget {
     this.addSemanticIndexes,
     this.reverse,
     this.showStepperInLast,
+    this.padding,
   }) : super(key: key);
 
   final List<StepperItemData> stepperData;
@@ -34,11 +35,13 @@ class StepperListView extends StatelessWidget {
   final bool? addSemanticIndexes;
   final bool? reverse;
   final bool? showStepperInLast;
+  final EdgeInsets? padding;
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       controller: controller,
+      padding: padding,
       physics: physics,
       shrinkWrap: shrinkWrap ?? false,
       itemCount: stepperData.length,
@@ -48,7 +51,9 @@ class StepperListView extends StatelessWidget {
       itemBuilder: (_, index) {
         return StepperWidget(
           stepperData[index],
-          isLast: (showStepperInLast ?? true) ? false : stepperData.last == stepperData[index],
+          isLast: (showStepperInLast ?? true)
+              ? false
+              : stepperData.last == stepperData[index],
           stepperWidgetBuilder: (_, data) {
             return stepWidget != null
                 ? PreferredSize(
